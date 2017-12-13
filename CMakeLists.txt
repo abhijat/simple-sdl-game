@@ -19,7 +19,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-add_executable(simple_sdl_game src/main.cpp include/cleanup.hpp src/cleanup.cpp)
+add_executable(simple_sdl_game src/main.cpp include/cleanup.hpp src/cleanup.cpp src/asset_loaders.cpp include/asset_loaders.hpp)
 target_link_libraries(
         simple_sdl_game
         ${CONAN_LIBS}

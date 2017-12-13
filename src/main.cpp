@@ -5,9 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
-#include "cleanup.hpp"
-
-SDL_Texture *load_texture(SDL_Renderer *renderer, const std::string& basic_string);
+#include <asset_loaders.hpp>
+#include <cleanup.hpp>
 
 int main(int argc, char **argv)
 {
@@ -65,13 +64,13 @@ int main(int argc, char **argv)
     }
 
     std::string resource_path{"../../res/"};
-    SDL_Texture *texture = load_texture(renderer, resource_path + "map.png");
+    SDL_Texture *texture = simple_sdl_game::asset_load::load_texture(renderer, resource_path + "map.png");
     if (texture == nullptr) {
         SDL_Quit();
         return 1;
     }
 
-    SDL_Rect destination;
+    SDL_Rect destination{};
     destination.x = 0;
     destination.y = 0;
     SDL_QueryTexture(texture, nullptr, nullptr, &destination.w, &destination.h);
@@ -92,12 +91,3 @@ int main(int argc, char **argv)
     return 0;
 }
 
-SDL_Texture *load_texture(SDL_Renderer *renderer, const std::string& resource)
-{
-    SDL_Texture *texture = IMG_LoadTexture(renderer, resource.c_str());
-    if (texture == nullptr) {
-        std::cout << "load_texture error: " << SDL_GetError() << "\n";
-    }
-
-    return texture;
-}
